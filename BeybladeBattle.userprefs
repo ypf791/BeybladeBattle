@@ -1,8 +1,9 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\TouchDetect.js">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\MenuScene\RoomList.js">
     <Files>
-      <File FileName="Assets\Scripts\TouchDetect.js" Line="16" Column="12" />
+      <File FileName="Assets\MenuScene\RoomList.js" Line="64" Column="19" />
+      <File FileName="Assets\MenuScene\MenuSceneManager.js" Line="9" Column="2" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
