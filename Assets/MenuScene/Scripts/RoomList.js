@@ -2,11 +2,15 @@
 
 var listItemPrefab : GameObject;
 var blackScreenPrefab : GameObject;
+var refreshPrefab : GameObject;
 
 private var blackScreen : GameObject;
+private var refreshButton : GameObject;
 private var listItem : GameObject[];
 private var listString : String[];
-private var listState : String;	// closed, closing, open, opening
+private var listState : String;	// closed, closing, open, opening, refreshing
+private var isRefreshing : boolean;
+private var pressedTransform : Transform;
 
 // Initialization of private booleans and arraies
 function Start() {
@@ -18,11 +22,19 @@ function Start() {
 function Update() {
 	if(listState=="opening" && !animation.isPlaying) {
 		ShowRoomListText();
+		refreshButton = Instantiate(refreshPrefab);
 		listState = "open";
 	}
 	
 	if(listState=="closing" && !animation.isPlaying) {
+		Destroy(blackScreen);
+		Camera.main.SendMessage("ResetMenu");
 		listState = "closed";
+	}
+	
+	if(listState=="refreshing" && !refreshButton.animation.isPlaying) {
+		ShowRoomListText();
+		listState = "open";
 	}
 	
 	if(listState=="open" && Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began) {
@@ -30,7 +42,10 @@ function Update() {
 		var hit : RaycastHit;
 		if(Physics.Raycast(ray, hit, 1000)) {
 			var hitTransform = hit.transform;
-			if(hitTransform !== blackScreen.transform) {
+			if(hitTransform == refreshButton.transform) {
+				RefreshRoomList();
+			}
+			else if(hitTransform !== blackScreen.transform) {
 				for(var i=0; i<listItem.Length; ++i) {
 					if(hitTransform == listItem[i].transform) {
 						Camera.main.SendMessage("Connect", listString[i]);
@@ -62,9 +77,9 @@ function ShowRoomList() {
 function HideRoomList() {
 	if(listState !== "open") return;
 	KillRoomListText();
+	Destroy(refreshButton);
 	animation.Play("RollUp");
 	animation.PlayQueued("MoveUp", QueueMode.CompleteOthers);
-	Destroy(blackScreen);
 	listState = "closing";
 }
 
@@ -77,7 +92,6 @@ private function ShowRoomListText() {
 		tmp = Instantiate(listItemPrefab);
 		tmp.transform.Translate(Vector3.down * i);
 		tmp.GetComponent(TextMesh).text = listString[i];
-		tmp.name = "room" + i;
 		listItem[i] = tmp;
 	}
 }
@@ -87,7 +101,8 @@ private function KillRoomListText() {
 }
 
 private function RefreshRoomList() {
-	Camera.main.SendMessage("UpdateRoomList");
 	KillRoomListText();
-	ShowRoomListText();
+	Camera.main.SendMessage("UpdateRoomList");
+	refreshButton.animation.Play();
+	listState = "refreshing";
 }

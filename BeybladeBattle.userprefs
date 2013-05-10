@@ -1,6 +1,11 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\MenuScene\Scripts\RoomList.js">
+    <Files>
+      <File FileName="Assets\MenuScene\Scripts\RoomList.js" Line="100" Column="38" />
+      <File FileName="Assets\MenuScene\Scripts\MenuSceneManager.js" Line="20" Column="59" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
