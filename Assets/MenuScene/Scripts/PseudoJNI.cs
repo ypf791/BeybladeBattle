@@ -13,4 +13,8 @@ public class PseudoJNI : MonoBehaviour {
 		
 		target.SendMessage("SetRoomList", list);
 	}
+	
+	void BeginWaiting() {}
+	
+	void StopWaiting() {}
 }

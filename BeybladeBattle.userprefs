@@ -1,9 +1,11 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\MenuScene\Scripts\RoomList.js">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\MenuScene\Scripts\WaitBoard.js">
     <Files>
-      <File FileName="Assets\MenuScene\Scripts\RoomList.js" Line="100" Column="38" />
-      <File FileName="Assets\MenuScene\Scripts\MenuSceneManager.js" Line="20" Column="59" />
+      <File FileName="Assets\MenuScene\Scripts\RoomList.js" Line="58" Column="3" />
+      <File FileName="Assets\MenuScene\Scripts\MenuSceneManager.js" Line="25" Column="11" />
+      <File FileName="Assets\MenuScene\Scripts\WaitBoard.js" Line="53" Column="2" />
+      <File FileName="Assets\MenuScene\Scripts\PseudoJNI.cs" Line="17" Column="23" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
