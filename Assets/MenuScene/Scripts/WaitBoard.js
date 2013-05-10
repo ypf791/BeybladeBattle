@@ -15,12 +15,22 @@ function Update() {
 	if(boardState=="falling" && !animation.isPlaying) {
 		hourglass = Instantiate(hourglassPrefab);
 		boardState = "showing";
+		Camera.main.SendMessage("BeginWaiting");
 	}
 	
 	if(boardState=="rising" && !animation.isPlaying) {
 		Destroy(blackScreen);
 		Camera.main.SendMessage("ResetMenu");
 		boardState = "hidden";
+	}
+	
+	if(boardState=="showing" && Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began) {
+		var ray = Camera.main.ScreenPointToRay(Input.GetTouch(0).position);
+		var hit : RaycastHit;
+		if(Physics.Raycast(ray, hit, 1000)) {
+			var hitTransform = hit.transform;
+			if(hitTransform == blackScreen.transform) HideBoard();
+		}
 	}
 }
 
@@ -32,7 +42,13 @@ function ShowBoard() {
 }
 
 function HideBoard() {
+	Camera.main.SendMessage("StopWaiting");
 	if(boardState == "hidden") return;
 	Destroy(hourglass);
 	animation.Play("WaitBoardUp");
+	boardState = "rising";
+}
+
+function ConnectionBuilt(opponent : String) {
+	
 }

@@ -21,7 +21,8 @@ function Update () {
 			pressedMenuItem.renderer.material.color = Color.yellow;
 			isMenuPressed = true;
 			switch(pressedMenuItem.tag) {
-				case "server" : break;
+				case "server" : wait.SendMessage("ShowBoard");
+								break;
 				case "client" : board.SendMessage("ShowRoomList");
 								break;
 				case "quit"   : SendMessage("fadeOut");
@@ -37,7 +38,7 @@ function ResetMenu() {
 	isMenuPressed = false;
 }
 //*/
-//*
+/*
 function OnGUI() {
 	if(GUI.Button(Rect(10, 10, 120, 50), "Test button 1")) {
 		board.SendMessage("ShowRoomList");
