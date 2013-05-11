@@ -52,5 +52,8 @@ function OnGUI() {
 	if(GUI.Button(Rect(10, 190, 120, 50), "Test button 4")) {
 		wait.SendMessage("HideBoard");
 	}
+	if(GUI.Button(Rect(10, 250, 120, 50), "Test button 5")) {
+		SendMessage("Pause");
+	}
 }
 //*/
