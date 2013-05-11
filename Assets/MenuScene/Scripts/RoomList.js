@@ -3,14 +3,18 @@
 var listItemPrefab : GameObject;
 var blackScreenPrefab : GameObject;
 var refreshPrefab : GameObject;
+var hourglassPrefab : GameObject;
 
 private var blackScreen : GameObject;
 private var refreshButton : GameObject;
+private var hourglass : GameObject;
+
 private var listItem : GameObject[];
 private var listString : String[];
-private var listState : String;	// closed, closing, open, opening, refreshing
+private var listState : String;	// closed, closing, open, opening, refreshing, waiting
+
 private var isRefreshing : boolean;
-private var pressedTransform : Transform;
+
 
 // Initialization of private booleans and arraies
 function Start() {
@@ -49,6 +53,7 @@ function Update() {
 				for(var i=0; i<listItem.Length; ++i) {
 					if(hitTransform == listItem[i].transform) {
 						Camera.main.SendMessage("Connect", listString[i]);
+						StartWaiting();
 						break;
 					}
 				}
@@ -83,6 +88,19 @@ function HideRoomList() {
 	listState = "closing";
 }
 
+function ConnectionBuilt(opponent : String) {
+	if(listState !== "waiting") return;
+	hourglass.SetActive(false);
+	var showText = Instantiate(listItemPrefab);
+	var showContain = "Connecting:\n" + opponent;
+	showText.GetComponent(TextMesh).text = showContain;
+	showText.transform.Translate(Vector3.down * 2.5);
+	yield WaitForSeconds(1.0);
+	Destroy(showText);
+	listState = "open";
+	HideRoomList();
+}
+
 // The calling of this function is controlled by the first "if" block in function Update()
 private function ShowRoomListText() {
 	Camera.main.SendMessage("UpdateRoomList");
@@ -105,4 +123,11 @@ private function RefreshRoomList() {
 	Camera.main.SendMessage("UpdateRoomList");
 	refreshButton.animation.Play();
 	listState = "refreshing";
+}
+
+private function StartWaiting() {
+	KillRoomListText();
+	Destroy(refreshButton);
+	hourglass = Instantiate(hourglassPrefab);
+	listState = "waiting";
 }

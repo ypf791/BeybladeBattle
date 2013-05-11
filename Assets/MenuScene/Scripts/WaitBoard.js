@@ -2,10 +2,12 @@
 
 var hourglassPrefab : GameObject;
 var blackScreenPrefab : GameObject;
+var textPrefab : GameObject;
 
 private var hourglass : GameObject;
 private var blackScreen : GameObject;
-private var boardState : String; // hidden, falling, showing, rising
+
+private var boardState : String; // hidden, falling, showing, rising, connecting
 
 function Start() {
 	boardState = "hidden";
@@ -35,20 +37,29 @@ function Update() {
 }
 
 function ShowBoard() {
-	if(boardState == "showing") return;
+	if(boardState !== "hidden") return;
 	blackScreen = Instantiate(blackScreenPrefab);
 	animation.Play("WaitBoardDown");
 	boardState = "falling";
 }
 
 function HideBoard() {
+	if(boardState !== "showing") return;
 	Camera.main.SendMessage("StopWaiting");
-	if(boardState == "hidden") return;
 	Destroy(hourglass);
 	animation.Play("WaitBoardUp");
 	boardState = "rising";
 }
 
 function ConnectionBuilt(opponent : String) {
-	
+	boardState = "connecting";
+	hourglass.SetActive(false);
+	var showText = Instantiate(textPrefab);
+	var showContain = "Connecting:\n" + opponent;
+	showText.GetComponent(TextMesh).text = showContain;
+	showText.transform.Translate(Vector3.down * 2.5);
+	yield WaitForSeconds(1.0);
+	Destroy(showText);
+	boardState = "showing";
+	HideBoard();
 }

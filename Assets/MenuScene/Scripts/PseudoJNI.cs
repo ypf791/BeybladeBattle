@@ -2,19 +2,34 @@ using UnityEngine;
 using System.Collections;
 
 public class PseudoJNI : MonoBehaviour {
-	public GameObject target;
+	public GameObject roomListTarget;
+	public GameObject waitBoardTarget;
 	
-	void Connect(string roomName) {
+	private bool isWaiting;
+	
+	void Start() {
+			isWaiting = false;
+	}
+	
+	IEnumerator Connect(string roomName) {
+		yield return new WaitForSeconds(2.0F);
+		roomListTarget.SendMessage ("ConnectionBuilt", roomName);
 	}
 	
 	void UpdateRoomList() {
 		// Testing case. Should be replaced with the room list get from Android JNI
-		string[] list = new string[]{"room 1", "room 2", "room 3"};
+		string[] list = new string[]{"Alice", "Bob", "Oscar"};
 		
-		target.SendMessage("SetRoomList", list);
+		roomListTarget.SendMessage("SetRoomList", list);
 	}
 	
-	void BeginWaiting() {}
+	IEnumerator BeginWaiting() {
+		isWaiting = true;
+		yield return new WaitForSeconds(2.0F);
+		if(isWaiting) waitBoardTarget.SendMessage("ConnectionBuilt", "Oscar");
+	}
 	
-	void StopWaiting() {}
+	void StopWaiting() {
+		isWaiting = false;
+	}
 }

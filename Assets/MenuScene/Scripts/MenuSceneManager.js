@@ -38,7 +38,7 @@ function ResetMenu() {
 	isMenuPressed = false;
 }
 //*/
-/*
+//*
 function OnGUI() {
 	if(GUI.Button(Rect(10, 10, 120, 50), "Test button 1")) {
 		board.SendMessage("ShowRoomList");
