@@ -51,11 +51,11 @@ function HideBoard() {
 	boardState = "rising";
 }
 
-function ConnectionBuilt(opponent : String) {
+function ConnectionBuilt() {
 	boardState = "connecting";
 	hourglass.SetActive(false);
 	var showText = Instantiate(textPrefab);
-	var showContain = "Connecting:\n" + opponent;
+	var showContain = "Connection built";
 	showText.GetComponent(TextMesh).text = showContain;
 	showText.transform.Translate(Vector3.down * 2.5);
 	yield WaitForSeconds(1.0);

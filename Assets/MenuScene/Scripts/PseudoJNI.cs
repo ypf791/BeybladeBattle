@@ -16,7 +16,7 @@ public class PseudoJNI : MonoBehaviour {
 	IEnumerator Connect(string roomName) {
 		yield return new WaitForSeconds(2.0F);
 		isConnected = true;
-		roomListTarget.SendMessage ("ConnectionBuilt", roomName);
+		roomListTarget.SendMessage ("ConnectionBuilt");
 	}
 	
 	void UpdateRoomList() {
@@ -34,7 +34,7 @@ public class PseudoJNI : MonoBehaviour {
 		isWaiting = true;
 		yield return new WaitForSeconds(2.0F);
 		if(isWaiting) isConnected = true;
-		waitBoardTarget.SendMessage("ConnectionBuilt", "Oscar");
+		waitBoardTarget.SendMessage("ConnectionBuilt");
 	}
 	
 	void StopWaiting() {

@@ -88,11 +88,11 @@ function HideRoomList() {
 	listState = "closing";
 }
 
-function ConnectionBuilt(opponent : String) {
+function ConnectionBuilt() {
 	if(listState !== "waiting") return;
 	hourglass.SetActive(false);
 	var showText = Instantiate(listItemPrefab);
-	var showContain = "Connecting:\n" + opponent;
+	var showContain = "Connection built";
 	showText.GetComponent(TextMesh).text = showContain;
 	showText.transform.Translate(Vector3.down * 2.5);
 	yield WaitForSeconds(1.0);

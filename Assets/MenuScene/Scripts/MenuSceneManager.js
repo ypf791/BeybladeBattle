@@ -6,30 +6,50 @@ var menu : GameObject;
 var title : GameObject;
 var gyro1 : GameObject;
 var gyro2 : GameObject;
+var select : GameObject;
 
 private var pressedMenuItem : Transform;
 private var isMenuPressed : boolean;
-private var sceneState : String; // normal, transform, choose
+private var sceneState : String; // normal, transform, move, choose
+private var selection : boolean; // true as right; false as left
 
 function Start () {
 	SendMessage("fadeIn");
 	isMenuPressed = false;
 	sceneState = "normal";
+	selection = true;
 }
 
 function Update () {
+	if(Input.GetKey(KeyCode.Escape)) Application.Quit();
+	
 	if(sceneState == "transform" && !menu.animation.isPlaying && !menu.animation.isPlaying) {
 		Destroy(title);
 		Destroy(menu);
 		animation.Play();
 		gyro2.GetComponent(Animator).SetBool("open", true);
+		sceneState = "move";
+	}
+	
+	if(sceneState == "move" && !animation.isPlaying) {
+		select.SetActive(true);
 		sceneState = "choose";
 	}
 	
 	if(Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began) {
 		var ray = Camera.main.ScreenPointToRay(Input.GetTouch(0).position);
 		var hit : RaycastHit;
-		if(!isMenuPressed && Physics.Raycast(ray, hit, 1000)) {
+		var isRayCast = Physics.Raycast(ray, hit, 1000);
+		
+		if(sceneState=="choose") {
+			if(!isRayCast) {
+				selection = !selection;
+				select.animation.Play(selection ? "SelectFrameShiftRight" : "SelectFrameShiftLeft");
+				gyro1.GetComponent(Animator).SetBool("open", !selection);
+				gyro2.GetComponent(Animator).SetBool("open", selection);
+			}
+		}
+		else if(!isMenuPressed && isRayCast) {
 			pressedMenuItem = hit.transform;
 			pressedMenuItem.renderer.material.color = Color.yellow;
 			isMenuPressed = true;
@@ -79,7 +99,7 @@ function OnGUI() {
 	}
 }
 //*/
-/*
+//*
 function OnGUI() {
 	if(GUI.Button(Rect(10, 10, 120, 50), "Test")) {
 		wait.SendMessage("ShowBoard");
