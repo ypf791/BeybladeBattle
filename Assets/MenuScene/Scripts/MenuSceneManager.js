@@ -79,7 +79,7 @@ function OnGUI() {
 	}
 }
 //*/
-//*
+/*
 function OnGUI() {
 	if(GUI.Button(Rect(10, 10, 120, 50), "Test")) {
 		wait.SendMessage("ShowBoard");
