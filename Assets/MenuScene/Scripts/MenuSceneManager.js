@@ -21,8 +21,6 @@ function Start () {
 }
 
 function Update () {
-	if(Input.GetKey(KeyCode.Escape)) Application.Quit();
-	
 	if(sceneState == "transform" && !menu.animation.isPlaying && !menu.animation.isPlaying) {
 		Destroy(title);
 		Destroy(menu);
@@ -47,6 +45,14 @@ function Update () {
 				select.animation.Play(selection ? "SelectFrameShiftRight" : "SelectFrameShiftLeft");
 				gyro1.GetComponent(Animator).SetBool("open", !selection);
 				gyro2.GetComponent(Animator).SetBool("open", selection);
+			}
+			else {
+				select.renderer.material.color = Color.red;
+				var param = new GameObject();
+				param.tag = "paramBetweenScene";
+				param.name = selection ? "gyro2" : "gyro1";
+				DontDestroyOnLoad(param);
+				Application.LoadLevel(1);
 			}
 		}
 		else if(!isMenuPressed && isRayCast) {
@@ -73,33 +79,13 @@ function SwitchScene() {
 	title.animation.Play();
 	sceneState = "transform";
 }
-//*
+
 function ResetMenu() {
 	SendMessage("CheckConnected");
 	pressedMenuItem.renderer.material.color = Color.white;
 	isMenuPressed = false;
 }
-//*/
 /*
-function OnGUI() {
-	if(GUI.Button(Rect(10, 10, 120, 50), "Test button 1")) {
-		board.SendMessage("ShowRoomList");
-	}
-	if(GUI.Button(Rect(10, 70, 120, 50), "Test button 2")) {
-		board.SendMessage("HideRoomList");
-	}
-	if(GUI.Button(Rect(10, 130, 120, 50), "Test button 3")) {
-		wait.SendMessage("ShowBoard");
-	}
-	if(GUI.Button(Rect(10, 190, 120, 50), "Test button 4")) {
-		wait.SendMessage("HideBoard");
-	}
-	if(GUI.Button(Rect(10, 250, 120, 50), "Test button 5")) {
-		SendMessage("Pause");
-	}
-}
-//*/
-//*
 function OnGUI() {
 	if(GUI.Button(Rect(10, 10, 120, 50), "Test")) {
 		wait.SendMessage("ShowBoard");

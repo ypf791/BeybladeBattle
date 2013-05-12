@@ -1,6 +1,13 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\GyroAccelScene\Scripts\VibrateDetect.js">
+    <Files>
+      <File FileName="Assets\MenuScene\Scripts\MenuSceneManager.js" Line="24" Column="54" />
+      <File FileName="Assets\MenuScene\Scripts\WaitBoard.js" Line="16" Column="16" />
+      <File FileName="Assets\MenuScene\Scripts\RoomList.js" Line="123" Column="33" />
+      <File FileName="Assets\GyroAccelScene\Scripts\VibrateDetect.js" Line="34" Column="20" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
