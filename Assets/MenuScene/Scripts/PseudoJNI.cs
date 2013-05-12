@@ -5,14 +5,17 @@ public class PseudoJNI : MonoBehaviour {
 	public GameObject roomListTarget;
 	public GameObject waitBoardTarget;
 	
+	private bool isConnected;
 	private bool isWaiting;
 	
 	void Start() {
-			isWaiting = false;
+		isWaiting = false;
+		isConnected = false;
 	}
 	
 	IEnumerator Connect(string roomName) {
 		yield return new WaitForSeconds(2.0F);
+		isConnected = true;
 		roomListTarget.SendMessage ("ConnectionBuilt", roomName);
 	}
 	
@@ -23,10 +26,15 @@ public class PseudoJNI : MonoBehaviour {
 		roomListTarget.SendMessage("SetRoomList", list);
 	}
 	
+	void CheckConnected() {
+		if(isConnected) SendMessage("SwitchScene");
+	}
+	
 	IEnumerator BeginWaiting() {
 		isWaiting = true;
 		yield return new WaitForSeconds(2.0F);
-		if(isWaiting) waitBoardTarget.SendMessage("ConnectionBuilt", "Oscar");
+		if(isWaiting) isConnected = true;
+		waitBoardTarget.SendMessage("ConnectionBuilt", "Oscar");
 	}
 	
 	void StopWaiting() {
